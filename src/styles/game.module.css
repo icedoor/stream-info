@@ -1,0 +1,26 @@
+a {
+  color: #ffffff;
+}
+
+a:hover, a:active, a:focus {
+  color:rgb(0, 155, 147);
+}
+
+.gameinfo{
+  border: 2px solid rgb(0, 155, 147);
+  padding: 20px;
+  margin: 20px;
+  text-align: left
+}
+
+.dropdown {
+  border: 2px solid rgb(0, 155, 147);
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  margin: 20px;
+}
+
+.dropdown:focus {
+  outline: none;
+}
