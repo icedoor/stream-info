@@ -23,9 +23,9 @@ class App extends Component {
     error: null
   }
 
-  handleResponse = (response) => {
+  static handleResponse = (response) => {
     if (response.status >= 200 && response.status < 300) {
-      return response.json();
+      return response;
     } else {
       throw Error(response.statusText);
     }
@@ -45,6 +45,7 @@ class App extends Component {
       headers: authHeader
     })
       .then(this.handleResponse)
+      .then(res => res.json())
       .then(data => {
         return fetch(`https://api.twitch.tv/helix/streams?first=${this.state.selectedAmount}&game_id=${data.data[0].id}`, {
           headers: authHeader
@@ -56,12 +57,14 @@ class App extends Component {
 
     let metadata = streams
       .then(this.handleResponse)
+      .then(res => res.json())
       .then(data => {
         const results = data.data.map((stream) => {
           return fetch(`https://api.twitch.tv/helix/streams/metadata?user_id=${stream.user_id}`, {
             headers: authHeader
           })
             .then(this.handleResponse)
+            .then(res => res.json())
             .then(data => {
               return { viewers: stream.viewer_count, ...data.data[0] };
             })
